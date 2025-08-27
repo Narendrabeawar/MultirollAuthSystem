@@ -18,8 +18,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-catamaran)", "var(--font-inter)"],
-        display: ["Greycliff CF", "var(--font-catamaran)", "var(--font-inter)"],
+        sans: ["var(--font-poppins)", "var(--font-inter)"],
+        display: ["Greycliff CF", "var(--font-poppins)", "var(--font-inter)"],
       },
       colors: {
         border: "hsl(var(--border))",

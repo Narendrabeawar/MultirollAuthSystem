@@ -1,10 +1,8 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Poppins } from 'next/font/google'
 import './globals.css'
 import ConditionalNavbar from '@/components/layout/conditional-navbar'
-import { Catamaran } from 'next/font/google'
-
-const catamaran = Catamaran({ subsets: ['latin'], variable: '--font-catamaran' })
+const poppins = Poppins({ subsets: ['latin'], weight: ['300','400','500','600','700','800'], variable: '--font-poppins' })
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
@@ -20,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${catamaran.variable} font-sans`}>
+      <body className={`${inter.variable} ${poppins.variable} font-sans`}>
         <div className="min-h-screen bg-background">
           <ConditionalNavbar />
           <main>
