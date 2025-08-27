@@ -1,0 +1,276 @@
+# Multi-User SaaS - User Rules & Guidelines
+
+## 🎯 Project Overview
+This document defines the user rules, roles, permissions, and guidelines for the Multi-User SaaS authentication template built with Next.js 15, Supabase, and shadcn/ui.
+
+## 👥 User Roles & Permissions
+
+### 1. Super Admin (`superAdmin`)
+**Highest level of access and control**
+
+**Permissions:**
+- Full system access and control
+- Can view all user dashboards and data
+- Can manage all user accounts and roles
+- Can access system-wide analytics and reports
+- Can perform critical system operations
+- Can override any access restrictions
+
+**Dashboard Access:** `/dashboard/superadmin`
+**Default Actions:**
+- System-wide user management
+- Critical system alerts monitoring
+- Performance analytics
+- Security audit logs
+- Database administration
+
+### 2. Admin (`admin`)
+**High-level administrative access**
+
+**Permissions:**
+- Can manage user accounts (except superAdmin)
+- Can view and modify user data within their scope
+- Can access administrative functions
+- Can generate reports and analytics
+- Cannot access superAdmin functions
+
+**Dashboard Access:** `/dashboard/admin`
+**Default Actions:**
+- User management
+- System monitoring
+- Report generation
+- Administrative tasks
+- Team oversight
+
+### 3. User1 (`user1`)
+**Default role for new signups**
+
+**Permissions:**
+- Access to personal dashboard
+- Can view and manage own profile
+- Can perform basic operations
+- Cannot access other user data
+- Cannot perform administrative functions
+
+**Dashboard Access:** `/dashboard/user1`
+**Default Actions:**
+- Personal profile management
+- Basic data operations
+- Personal analytics
+- Account settings
+
+### 4. User2 (`user2`)
+**Limited access user**
+
+**Permissions:**
+- Access to personal dashboard with limited features
+- Can view own profile
+- Read-only access to most features
+- Cannot modify system settings
+- Cannot access other user data
+
+**Dashboard Access:** `/dashboard/user2`
+**Default Actions:**
+- View personal data
+- Limited operations
+- Read-only access to features
+
+### 5. User3 (`user3`)
+**Read-only user**
+
+**Permissions:**
+- Access to personal dashboard with minimal features
+- Read-only access to all features
+- Cannot modify any data
+- Cannot access other user data
+- Cannot perform any administrative functions
+
+**Dashboard Access:** `/dashboard/user3`
+**Default Actions:**
+- View personal information
+- Read-only access to all features
+- No modification capabilities
+
+## 🔐 Authentication Rules
+
+### Sign Up Process
+1. **Default Role Assignment:** All new users are automatically assigned the `user1` role
+2. **Email Verification:** Users must verify their email address before accessing the dashboard
+3. **Profile Creation:** User profiles are automatically created upon successful signup
+4. **Dashboard Redirect:** Users are redirected to their role-specific dashboard after signup
+
+### Sign In Process
+1. **Role-Based Redirect:** Users are automatically redirected to their role-specific dashboard
+2. **Session Management:** Sessions are managed securely through Supabase Auth
+3. **Access Validation:** User permissions are validated on each dashboard access
+
+### Sign Out Process
+1. **Session Termination:** All active sessions are terminated
+2. **Redirect to Landing:** Users are redirected to the landing page
+3. **Cache Clear:** All cached user data is cleared
+
+## 🛡️ Security Rules
+
+### Row Level Security (RLS)
+- **Profiles Table:** Users can only access their own profile data
+- **Data Isolation:** Each user's data is completely isolated from other users
+- **Admin Override:** Admin and SuperAdmin can access user data within their scope
+
+### Access Control
+- **Route Protection:** All dashboard routes are protected and require authentication
+- **Role Validation:** User roles are validated on each page load
+- **Unauthorized Access:** Users attempting to access unauthorized areas are redirected
+
+### Data Protection
+- **Environment Variables:** Sensitive configuration is stored in environment variables
+- **API Security:** All API calls are authenticated and authorized
+- **Input Validation:** All user inputs are validated using Zod schemas
+
+## 📱 User Interface Rules
+
+### Navigation
+- **Navbar:** Always visible, shows user status and quick actions
+- **Sidebar:** Collapsible, shows role-specific navigation items
+- **Breadcrumbs:** Clear navigation path for better UX
+
+### Responsive Design
+- **Mobile First:** All components are mobile-responsive
+- **Breakpoints:** Optimized for desktop, tablet, and mobile devices
+- **Touch Friendly:** All interactive elements are touch-friendly
+
+### Accessibility
+- **WCAG Compliance:** Follows WCAG 2.1 guidelines
+- **Keyboard Navigation:** Full keyboard navigation support
+- **Screen Reader:** Compatible with screen readers
+- **Color Contrast:** High contrast ratios for better readability
+
+## 🎨 Design Rules
+
+### Color Palette
+- **Primary:** Blue-based palette for trust and professionalism
+- **Secondary:** Purple accents for creativity and innovation
+- **Neutral:** Gray scale for text and backgrounds
+- **Semantic:** Green for success, red for errors, yellow for warnings
+
+### Typography
+- **Primary Font:** Inter for body text (clean and readable)
+- **Heading Font:** Playfair Display for headings (elegant and professional)
+- **Font Sizes:** Consistent scale using Tailwind's typography system
+
+### Animations
+- **Page Transitions:** Smooth Framer Motion transitions between pages
+- **Hover Effects:** Subtle animations for interactive elements
+- **Loading States:** Clear loading indicators for better UX
+
+## 📊 Dashboard Rules
+
+### Layout Consistency
+- **Common Layout:** All dashboards share the same layout structure
+- **Sidebar:** Role-specific navigation items
+- **Content Area:** Flexible content area with cards and data
+- **Header:** Dashboard title and quick actions
+
+### Data Display
+- **Cards:** Use shadcn/ui Card components for data presentation
+- **Statistics:** Clear and readable statistics with icons
+- **Tables:** Responsive tables for data lists
+- **Charts:** Visual data representation where appropriate
+
+### User Experience
+- **Loading States:** Clear loading indicators
+- **Error Handling:** User-friendly error messages
+- **Success Feedback:** Positive feedback for successful actions
+- **Empty States:** Helpful messages when no data is available
+
+## 🔧 Development Rules
+
+### Code Organization
+- **Folder Structure:** Follow the specified folder structure
+- **Component Naming:** Use PascalCase for components
+- **File Naming:** Use kebab-case for files
+- **Import Organization:** Group imports logically
+
+### Code Quality
+- **TypeScript:** Use TypeScript for type safety
+- **Comments:** Add helpful comments for beginners
+- **Error Handling:** Comprehensive error handling
+- **Performance:** Optimize for performance and user experience
+
+### Testing
+- **Component Testing:** Test all reusable components
+- **Integration Testing:** Test authentication flows
+- **E2E Testing:** Test complete user journeys
+- **Accessibility Testing:** Ensure accessibility compliance
+
+## 📝 Documentation Rules
+
+### Code Documentation
+- **Function Comments:** Document all functions and their parameters
+- **Component Props:** Document all component props
+- **Complex Logic:** Explain complex business logic
+- **API Integration:** Document API integration points
+
+### User Documentation
+- **README:** Comprehensive project documentation
+- **Setup Guide:** Clear setup and installation instructions
+- **API Reference:** Document all API endpoints
+- **Troubleshooting:** Common issues and solutions
+
+## 🚀 Deployment Rules
+
+### Environment Setup
+- **Environment Variables:** All sensitive data in environment variables
+- **Supabase Configuration:** Proper Supabase project setup
+- **Database Migration:** Run all necessary database migrations
+- **Security Policies:** Implement proper RLS policies
+
+### Production Checklist
+- **Performance:** Optimize for production performance
+- **Security:** Review and implement security best practices
+- **Monitoring:** Set up error monitoring and analytics
+- **Backup:** Implement data backup strategies
+
+## 📋 User Guidelines
+
+### For Developers
+1. **Follow the folder structure** as specified in the project requirements
+2. **Use TypeScript** for all new code
+3. **Implement proper error handling** in all components
+4. **Add comments** to explain complex logic
+5. **Test thoroughly** before deploying
+
+### For Users
+1. **Use strong passwords** for account security
+2. **Verify email addresses** to access full features
+3. **Contact support** for any issues or questions
+4. **Follow role-based permissions** and access guidelines
+5. **Report security concerns** immediately
+
+### For Administrators
+1. **Monitor user activity** regularly
+2. **Review access logs** for security issues
+3. **Update user roles** as needed
+4. **Maintain system security** and performance
+5. **Provide user support** and guidance
+
+## 🔄 Update and Maintenance
+
+### Regular Updates
+- **Security Updates:** Apply security patches promptly
+- **Feature Updates:** Add new features based on user feedback
+- **Performance Optimization:** Continuously optimize performance
+- **Bug Fixes:** Address reported issues quickly
+
+### Version Control
+- **Git Workflow:** Follow proper Git workflow
+- **Branch Strategy:** Use feature branches for development
+- **Code Review:** Require code review for all changes
+- **Release Management:** Proper release and version management
+
+---
+
+*This document should be updated as the project evolves and new requirements are added.*
+description:
+globs:
+alwaysApply: true
+---

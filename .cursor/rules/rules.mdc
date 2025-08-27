@@ -1,0 +1,282 @@
+# Multi-User SaaS - Cursor Development Rules & Plan
+
+## 🎯 Project Overview
+This document defines the development rules, architecture decisions, and coding standards for the Multi-User SaaS authentication template built with Next.js 15, Supabase, and shadcn/ui.
+
+## 🏗️ Architecture Rules
+
+### Next.js 15 App Router Structure
+- **App Directory**: Use Next.js 15 App Router exclusively
+- **Route Groups**: Use `(auth)` and `(dashboard)` route groups for organization
+- **Layout Nesting**: Implement proper layout nesting for shared components
+- **Server Components**: Prefer Server Components by default
+- **Client Components**: Use `"use client"` only when necessary for interactivity
+
+### Folder Structure Compliance
+```
+src/
+├── app/
+│   ├── (auth)/
+│   │   ├── signin/
+│   │   └── signup/
+│   ├── (dashboard)/
+│   │   └── dashboard/
+│   │       ├── superadmin/
+│   │       ├── admin/
+│   │       ├── user1/
+│   │       ├── user2/
+│   │       └── user3/
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── ui/           # shadcn/ui components
+│   ├── layout/       # Navbar, Sidebar
+│   └── auth/         # AuthForm
+└── lib/
+    ├── utils.ts
+    └── supabase/
+        ├── client.ts
+        └── auth-helpers.ts
+```
+
+## 💻 Coding Standards
+
+### TypeScript Rules
+- **Strict Mode**: Always use TypeScript strict mode
+- **Type Definitions**: Define interfaces for all data structures
+- **Generic Types**: Use generics for reusable components
+- **Union Types**: Use union types for role-based props
+- **Type Guards**: Implement proper type guards for role checking
+
+### Component Development Rules
+- **PascalCase**: Use PascalCase for component names
+- **Props Interface**: Define props interface for every component
+- **Default Props**: Use default props where appropriate
+- **Children Props**: Properly type children props
+- **Event Handlers**: Type all event handlers correctly
+
+### File Naming Conventions
+- **Components**: `PascalCase.tsx` (e.g., `AuthForm.tsx`)
+- **Pages**: `page.tsx` (Next.js convention)
+- **Layouts**: `layout.tsx` (Next.js convention)
+- **Utilities**: `camelCase.ts` (e.g., `auth-helpers.ts`)
+- **Constants**: `UPPER_SNAKE_CASE.ts` (e.g., `USER_ROLES.ts`)
+
+## 🎨 UI/UX Development Rules
+
+### shadcn/ui Integration
+- **Component Usage**: Use shadcn/ui components exclusively for UI elements
+- **Customization**: Extend shadcn/ui components through variants
+- **Consistency**: Maintain consistent styling across all components
+- **Accessibility**: Ensure all components meet accessibility standards
+
+### Framer Motion Rules
+- **Page Transitions**: Implement smooth page transitions
+- **Component Animations**: Add subtle animations for better UX
+- **Performance**: Optimize animations for performance
+- **Reduced Motion**: Respect user's motion preferences
+
+### Styling Guidelines
+- **Tailwind CSS**: Use Tailwind CSS for all styling
+- **CSS Variables**: Use CSS variables for theming
+- **Responsive Design**: Mobile-first responsive design
+- **Dark Mode**: Support dark mode through CSS variables
+
+## 🔐 Authentication & Security Rules
+
+### Supabase Integration
+- **Client Setup**: Use singleton pattern for Supabase client
+- **Environment Variables**: Store all Supabase config in env vars
+- **Error Handling**: Implement comprehensive error handling
+- **Type Safety**: Use generated types for Supabase responses
+
+### Role-Based Access Control
+- **Role Enum**: Define UserRole enum for type safety
+- **Permission Checks**: Implement hasRoleAccess helper
+- **Route Protection**: Protect all dashboard routes
+- **Redirect Logic**: Implement proper redirect logic based on roles
+
+### Security Best Practices
+- **Input Validation**: Use Zod for all form validation
+- **XSS Prevention**: Sanitize all user inputs
+- **CSRF Protection**: Implement CSRF protection
+- **Rate Limiting**: Add rate limiting for auth endpoints
+
+## 📱 Component Development Plan
+
+### Core Components Priority
+1. **AuthForm** - Reusable authentication form
+2. **Navbar** - Main navigation with user menu
+3. **Sidebar** - Role-based navigation sidebar
+4. **DashboardLayout** - Shared dashboard layout
+5. **Card Components** - Data presentation cards
+
+### Component Architecture
+- **Composition**: Use composition over inheritance
+- **Props Drilling**: Minimize props drilling with context
+- **State Management**: Use React hooks for local state
+- **Side Effects**: Use useEffect for side effects
+
+## 🗄️ Database & API Rules
+
+### Supabase Database
+- **RLS Policies**: Implement proper Row Level Security
+- **Profiles Table**: Store user profiles with role information
+- **Triggers**: Use triggers for automatic profile creation
+- **Indexes**: Add proper indexes for performance
+
+### API Design
+- **RESTful**: Follow RESTful API principles
+- **Error Responses**: Standardize error response format
+- **Status Codes**: Use appropriate HTTP status codes
+- **Rate Limiting**: Implement API rate limiting
+
+## 🧪 Testing Strategy
+
+### Testing Rules
+- **Unit Tests**: Test all utility functions
+- **Component Tests**: Test all reusable components
+- **Integration Tests**: Test authentication flows
+- **E2E Tests**: Test complete user journeys
+
+### Testing Tools
+- **Jest**: For unit and component testing
+- **React Testing Library**: For component testing
+- **Playwright**: For E2E testing
+- **MSW**: For API mocking
+
+## 📦 Package Management Rules
+
+### pnpm Usage
+- **Lock File**: Always commit pnpm-lock.yaml
+- **Workspace**: Use pnpm workspaces if needed
+- **Scripts**: Define all necessary scripts in package.json
+- **Dependencies**: Keep dependencies up to date
+
+### Dependency Management
+- **Production Dependencies**: Only essential runtime dependencies
+- **Development Dependencies**: All build and test tools
+- **Peer Dependencies**: Handle peer dependencies properly
+- **Version Pinning**: Pin critical dependency versions
+
+## 🚀 Development Workflow
+
+### Git Workflow
+- **Feature Branches**: Create feature branches for new features
+- **Commit Messages**: Use conventional commit messages
+- **Pull Requests**: Require PR reviews for all changes
+- **Squash Merges**: Use squash merges for clean history
+
+### Code Review Rules
+- **TypeScript**: Ensure all code is properly typed
+- **Performance**: Review for performance implications
+- **Security**: Security review for all changes
+- **Accessibility**: Accessibility review for UI changes
+
+### Deployment Rules
+- **Environment Variables**: All env vars properly configured
+- **Database Migrations**: Run migrations before deployment
+- **Build Process**: Ensure clean build process
+- **Health Checks**: Implement health check endpoints
+
+## 📝 Documentation Rules
+
+### Code Documentation
+- **JSDoc**: Use JSDoc for function documentation
+- **Component Props**: Document all component props
+- **Complex Logic**: Explain complex business logic
+- **API Endpoints**: Document all API endpoints
+
+### README Requirements
+- **Setup Instructions**: Clear setup and installation guide
+- **Environment Variables**: List all required env vars
+- **Database Setup**: SQL scripts and migration instructions
+- **Deployment Guide**: Production deployment instructions
+
+## 🔧 Development Tools Configuration
+
+### Editor Configuration
+- **ESLint**: Configure ESLint for code quality
+- **Prettier**: Use Prettier for code formatting
+- **TypeScript**: Strict TypeScript configuration
+- **VSCode Settings**: Optimize VSCode for development
+
+### Build Configuration
+- **Next.js Config**: Optimize Next.js configuration
+- **Tailwind Config**: Configure Tailwind for the project
+- **PostCSS Config**: Set up PostCSS for processing
+- **TypeScript Config**: Strict TypeScript settings
+
+## 🎯 Development Priorities
+
+### Phase 1: Core Setup
+1. Project initialization with pnpm
+2. Next.js 15 App Router setup
+3. Tailwind CSS and shadcn/ui configuration
+4. Supabase client setup
+5. Basic folder structure
+
+### Phase 2: Authentication
+1. AuthForm component development
+2. Supabase auth integration
+3. Role-based user management
+4. Route protection implementation
+5. Dashboard redirects
+
+### Phase 3: UI Components
+1. Navbar component with user menu
+2. Sidebar component with role-based navigation
+3. Dashboard layout implementation
+4. Card components for data display
+5. Responsive design implementation
+
+### Phase 4: Dashboard Pages
+1. User1 dashboard (default role)
+2. User2 dashboard (limited access)
+3. User3 dashboard (read-only)
+4. Admin dashboard (administrative)
+5. SuperAdmin dashboard (full access)
+
+### Phase 5: Polish & Optimization
+1. Framer Motion animations
+2. Performance optimization
+3. Accessibility improvements
+4. Error handling enhancement
+5. Documentation completion
+
+## 🚨 Error Handling Rules
+
+### Error Boundaries
+- **React Error Boundaries**: Implement error boundaries
+- **Graceful Degradation**: Handle errors gracefully
+- **User Feedback**: Provide clear error messages
+- **Logging**: Log errors for debugging
+
+### Form Validation
+- **Zod Schemas**: Use Zod for all form validation
+- **Real-time Validation**: Provide real-time feedback
+- **Error Messages**: Clear and helpful error messages
+- **Success Feedback**: Positive feedback for success
+
+## 🔄 State Management Rules
+
+### Local State
+- **useState**: Use useState for local component state
+- **useReducer**: Use useReducer for complex state logic
+- **Custom Hooks**: Create custom hooks for reusable logic
+- **Context**: Use Context for global state when needed
+
+### Server State
+- **Supabase Queries**: Use Supabase client for data fetching
+- **Caching**: Implement proper caching strategies
+- **Optimistic Updates**: Use optimistic updates for better UX
+- **Error Handling**: Handle server state errors properly
+
+---
+
+*This document should be updated as the project evolves and new requirements are added. Follow these rules to maintain code quality and consistency throughout the development process.*
+description:
+globs:
+alwaysApply: true
+---
