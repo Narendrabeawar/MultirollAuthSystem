@@ -182,7 +182,11 @@ export default function AuthForm({ mode }: AuthFormProps) {
 
         <Button
           type="submit"
-          className="w-full bg-emerald-700 hover:bg-emerald-800 text-white border-0 shadow-lg"
+          className={`w-full text-white border-0 shadow-lg ${
+            isSignIn 
+              ? 'bg-custom-teal hover:bg-custom-teal-hover' 
+              : 'bg-custom-teal hover:bg-custom-teal-hover'
+          }`}
           disabled={loading}
         >
           {loading ? (

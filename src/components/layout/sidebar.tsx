@@ -21,7 +21,7 @@ import {
   Activity,
   LogOut
 } from 'lucide-react'
-import { signOut } from '@/lib/supabase/auth-helpers'
+import { useSession } from '@/components/providers/session-provider'
 
 interface SidebarItem {
   title: string
@@ -37,65 +37,66 @@ interface SidebarProps {
 export default function Sidebar({ role }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false)
   const pathname = usePathname()
+  const { signOut } = useSession()
 
   // Define sidebar items based on role
   const getSidebarItems = (role: string): SidebarItem[] => {
     const baseItems: SidebarItem[] = [
       {
         title: 'Dashboard',
-        href: `/dashboard/${role}`,
+        href: `/dashboard/${role === 'superAdmin' ? 'superadmin' : role}`,
         icon: Home,
       },
       {
         title: 'Analytics',
-        href: `/dashboard/${role}/analytics`,
+        href: `/dashboard/${role === 'superAdmin' ? 'superadmin' : role}/analytics`,
         icon: BarChart3,
       },
       {
         title: 'Reports',
-        href: `/dashboard/${role}/reports`,
+        href: `/dashboard/${role === 'superAdmin' ? 'superadmin' : role}/reports`,
         icon: FileText,
       },
       {
         title: 'Calendar',
-        href: `/dashboard/${role}/calendar`,
+        href: `/dashboard/${role === 'superAdmin' ? 'superadmin' : role}/calendar`,
         icon: Calendar,
       },
     ]
 
     // Add role-specific items
-    if (role === 'superadmin' || role === 'admin') {
+    if (role === 'superAdmin' || role === 'admin') {
       baseItems.push(
         {
           title: 'User Management',
-          href: `/dashboard/${role}/user-management`,
+          href: `/dashboard/${role === 'superAdmin' ? 'superadmin' : role}/user-management`,
           icon: Users,
           badge: 'Admin',
         },
         {
           title: 'System Settings',
-          href: `/dashboard/${role}/settings`,
+          href: `/dashboard/${role === 'superAdmin' ? 'superadmin' : role}/settings`,
           icon: Settings,
         },
         {
           title: 'Database',
-          href: `/dashboard/${role}/database`,
+          href: `/dashboard/${role === 'superAdmin' ? 'superadmin' : role}/database`,
           icon: Database,
         }
       )
     }
 
-    if (role === 'superadmin') {
+    if (role === 'superAdmin') {
       baseItems.push(
         {
           title: 'Security',
-          href: `/dashboard/${role}/security`,
+          href: `/dashboard/superadmin/security`,
           icon: Shield,
           badge: 'Super',
         },
         {
           title: 'Permissions',
-          href: `/dashboard/${role}/permissions`,
+          href: `/dashboard/superadmin/permissions`,
           icon: UserCheck,
         }
       )
@@ -209,43 +210,29 @@ export default function Sidebar({ role }: SidebarProps) {
             >
               <div className="flex items-center justify-between">
                 <span>Role: {role}</span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={async () => {
-                    try {
-                      const { error } = await signOut()
-                      if (!error) window.location.href = '/'
-                    } catch (e) {
-                      window.location.href = '/'
-                    }
-                  }}
-                  className="h-8"
-                >
-                  <LogOut className="h-4 w-4 mr-1" />
-                  Sign out
-                </Button>
+                                 <Button
+                   variant="ghost"
+                   size="sm"
+                   onClick={signOut}
+                   className="h-8"
+                 >
+                   <LogOut className="h-4 w-4 mr-1" />
+                   Sign out
+                 </Button>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
         {collapsed && (
           <div className="flex items-center justify-center mt-1">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={async () => {
-                try {
-                  const { error } = await signOut()
-                  if (!error) window.location.href = '/'
-                } catch (e) {
-                  window.location.href = '/'
-                }
-              }}
-              className="h-8 w-8"
-            >
-              <LogOut className="h-4 w-4" />
-            </Button>
+                         <Button
+               variant="ghost"
+               size="icon"
+               onClick={signOut}
+               className="h-8 w-8"
+             >
+               <LogOut className="h-4 w-4" />
+             </Button>
           </div>
         )}
       </div>

@@ -15,5 +15,14 @@ if (!supabaseUrl || !supabaseAnonKey) {
 // Create client with fallback values for development
 export const supabase = createClient(
   supabaseUrl || 'https://placeholder.supabase.co',
-  supabaseAnonKey || 'placeholder-key'
+  supabaseAnonKey || 'placeholder-key',
+  {
+    auth: {
+      persistSession: true,
+      storageKey: 'multiuser-saas-auth',
+      autoRefreshToken: true,
+      detectSessionInUrl: true,
+      flowType: 'pkce'
+    }
+  }
 )

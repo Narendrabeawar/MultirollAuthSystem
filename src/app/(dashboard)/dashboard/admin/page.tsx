@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import Link from 'next/link'
 import { 
   Users, 
   TrendingUp, 
@@ -73,7 +74,7 @@ export default function AdminDashboard() {
       description: 'Manage user accounts and permissions',
       color: 'text-blue-600',
       bgColor: 'bg-blue-50 hover:bg-blue-100',
-      href: '/dashboard/admin/users'
+      href: '/dashboard/admin/user-management'
     },
     { 
       title: 'System Settings', 
@@ -240,17 +241,19 @@ export default function AdminDashboard() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.1 }}
                   >
-                    <div className={`p-4 rounded-lg border cursor-pointer transition-all hover:shadow-md ${action.bgColor}`}>
-                      <div className="flex items-center space-x-3">
-                        <div className={`p-2 rounded-lg ${action.bgColor}`}>
-                          <action.icon className={`h-5 w-5 ${action.color}`} />
-                        </div>
-                        <div>
-                          <h3 className="font-semibold">{action.title}</h3>
-                          <p className="text-sm text-muted-foreground">{action.description}</p>
+                    <Link href={action.href}>
+                      <div className={`p-4 rounded-lg border cursor-pointer transition-all hover:shadow-md ${action.bgColor}`}>
+                        <div className="flex items-center space-x-3">
+                          <div className={`p-2 rounded-lg ${action.bgColor}`}>
+                            <action.icon className={`h-5 w-5 ${action.color}`} />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">{action.title}</h3>
+                            <p className="text-sm text-muted-foreground">{action.description}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   </motion.div>
                 ))}
               </div>

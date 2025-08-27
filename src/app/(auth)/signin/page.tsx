@@ -22,14 +22,14 @@ export default function SignInPage() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          filter: 'blur(8px)',
-          transform: 'scale(1.1)',
-          opacity: '0.7'
+          filter: 'blur(2px)',
+          transform: 'scale(1.05)',
+          opacity: '0.95'
         }}
       ></div>
       
       {/* Overlay for better readability */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
       
       {/* Animated background elements */}
       <div className="absolute inset-0">
