@@ -2,8 +2,11 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import ConditionalNavbar from '@/components/layout/conditional-navbar'
+import { Catamaran } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const catamaran = Catamaran({ subsets: ['latin'], variable: '--font-catamaran' })
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
   title: 'MultiUser SaaS - Role-Based Authentication Template',
@@ -17,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${catamaran.variable} font-sans`}>
         <div className="min-h-screen bg-background">
           <ConditionalNavbar />
           <main>

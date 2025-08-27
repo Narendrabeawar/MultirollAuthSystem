@@ -80,34 +80,70 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 py-20">
-        <div className="container mx-auto px-4">
+      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-teal-50 py-24">
+        {/* Background animated blobs in green tones */}
+        <motion.div
+          className="pointer-events-none absolute -top-24 -left-28 h-96 w-96 rounded-full bg-gradient-to-br from-emerald-300/40 to-teal-200/40 blur-3xl"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: [0.96, 1.05, 0.98, 1] }}
+          transition={{ duration: 16, repeat: Infinity, repeatType: 'mirror' }}
+        />
+        <motion.div
+          className="pointer-events-none absolute top-10 -right-20 h-[28rem] w-[28rem] rounded-full bg-gradient-to-br from-green-300/40 to-emerald-200/40 blur-3xl"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: [1, 1.08, 0.97, 1] }}
+          transition={{ duration: 18, repeat: Infinity, repeatType: 'mirror', delay: 0.8 }}
+        />
+        <motion.div
+          className="pointer-events-none absolute bottom-0 left-1/3 h-80 w-80 rounded-full bg-gradient-to-br from-lime-200/40 to-emerald-200/40 blur-3xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: [8, -8, 8] }}
+          transition={{ duration: 14, repeat: Infinity, repeatType: 'mirror', delay: 0.4 }}
+        />
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+            <h1 className="font-display tracking-tight text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-emerald-700 to-green-700 bg-clip-text text-transparent mb-6">
               MultiUser SaaS Template
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground/90 mb-8 max-w-2xl mx-auto leading-relaxed">
               A production-ready, beautifully organized multi-role authentication template 
               built with Next.js 15, Supabase, and shadcn/ui.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/signup">
-                <Button size="lg" className="text-lg px-8 py-6">
+                <Button size="lg" className="text-lg px-8 py-6 bg-emerald-700 hover:bg-emerald-800 text-white">
                   Get Started
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link href="/signin">
-                <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+                <Button variant="outline" size="lg" className="text-lg px-8 py-6 border-emerald-700 text-emerald-800 hover:bg-emerald-50">
                   Sign In
                 </Button>
               </Link>
             </div>
+          </motion.div>
+          {/* Foreground floating accents in green */}
+          <motion.div
+            className="pointer-events-none absolute left-10 top-10 hidden md:block"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 0.9, y: [0, -6, 0] }}
+            transition={{ duration: 8, repeat: Infinity, repeatType: 'mirror' }}
+          >
+            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-300 to-teal-300 shadow-lg shadow-emerald-200/50" />
+          </motion.div>
+          <motion.div
+            className="pointer-events-none absolute right-12 top-24 hidden md:block"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 0.9, y: [0, -8, 0] }}
+            transition={{ duration: 9, repeat: Infinity, repeatType: 'mirror', delay: 0.6 }}
+          >
+            <div className="h-12 w-12 rotate-6 rounded-full bg-gradient-to-br from-lime-300 to-emerald-300 shadow-lg shadow-emerald-200/50" />
           </motion.div>
         </div>
       </section>
@@ -122,8 +158,8 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4">Powerful Features</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="font-display text-4xl font-extrabold tracking-tight mb-4 text-emerald-800">Powerful Features</h2>
+            <p className="text-lg text-muted-foreground/90 max-w-2xl mx-auto">
               Everything you need to build a modern, scalable SaaS application
             </p>
           </motion.div>
@@ -139,13 +175,13 @@ export default function LandingPage() {
               >
                 <Card className="h-full hover:shadow-lg transition-shadow">
                   <CardHeader>
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                      <feature.icon className="h-6 w-6 text-primary" />
+                    <div className="w-12 h-12 bg-gradient-to-br from-emerald-100/60 to-teal-100/40 rounded-xl flex items-center justify-center mb-4">
+                      <feature.icon className="h-6 w-6 text-emerald-700" />
                     </div>
-                    <CardTitle className="text-xl">{feature.title}</CardTitle>
+                    <CardTitle className="text-xl font-semibold">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <CardDescription className="text-base">
+                    <CardDescription className="text-base leading-relaxed">
                       {feature.description}
                     </CardDescription>
                   </CardContent>
@@ -166,8 +202,8 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4">Role-Based Access</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="font-display text-4xl font-extrabold tracking-tight mb-4 text-emerald-800">Role-Based Access</h2>
+            <p className="text-lg text-muted-foreground/90 max-w-2xl mx-auto">
               Flexible role system with granular permissions and access control
             </p>
           </motion.div>
@@ -183,8 +219,8 @@ export default function LandingPage() {
               >
                 <Card className="h-full">
                   <CardHeader>
-                    <CardTitle className="text-xl">{role.name}</CardTitle>
-                    <CardDescription className="text-base">
+                    <CardTitle className="text-xl font-semibold">{role.name}</CardTitle>
+                    <CardDescription className="text-base leading-relaxed">
                       {role.description}
                     </CardDescription>
                   </CardHeader>
@@ -192,7 +228,7 @@ export default function LandingPage() {
                     <ul className="space-y-2">
                       {role.features.map((feature) => (
                         <li key={feature} className="flex items-center text-sm">
-                          <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                          <CheckCircle className="h-4 w-4 text-emerald-600 mr-2 flex-shrink-0" />
                           {feature}
                         </li>
                       ))}
@@ -206,7 +242,7 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary">
+      <section className="py-20 bg-gradient-to-br from-emerald-700 via-teal-700 to-green-700">
         <div className="container mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -214,10 +250,10 @@ export default function LandingPage() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold text-primary-foreground mb-4">
+            <h2 className="font-display text-4xl font-extrabold text-primary-foreground mb-4">
               Ready to Get Started?
             </h2>
-            <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
               Join thousands of developers building amazing SaaS applications with our template
             </p>
             <Link href="/signup">

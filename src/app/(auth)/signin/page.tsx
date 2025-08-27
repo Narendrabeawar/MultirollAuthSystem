@@ -99,7 +99,7 @@ export default function SignInPage() {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <p className="text-gray-300 text-sm">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <a href="/signup" className="text-blue-300 hover:text-blue-200 font-semibold transition-colors">
               Sign up here
             </a>

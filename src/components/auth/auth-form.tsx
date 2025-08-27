@@ -107,13 +107,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
         </p>
       </div>
 
-      {/* Configuration Notice */}
-      <div className="mb-6 p-3 bg-amber-500/20 border border-amber-400/30 rounded-lg backdrop-blur-sm">
-        <p className="text-sm text-amber-100">
-          <strong>Demo Mode:</strong> This is a demo template. To test authentication, 
-          you need to set up Supabase. See the README.md for setup instructions.
-        </p>
-      </div>
+      
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {!isSignIn && (
@@ -188,7 +182,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
 
         <Button
           type="submit"
-          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg"
+          className="w-full bg-emerald-700 hover:bg-emerald-800 text-white border-0 shadow-lg"
           disabled={loading}
         >
           {loading ? (

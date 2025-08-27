@@ -107,7 +107,7 @@ export default function User1Dashboard() {
             <h1 className="text-3xl font-bold">User 1 Dashboard</h1>
           </div>
           <p className="text-muted-foreground">
-            Welcome back! Here's what's happening with your account today.
+            Welcome back! Here&apos;s what&apos;s happening with your account today.
           </p>
         </div>
         <div className="flex space-x-2">

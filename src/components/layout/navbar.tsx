@@ -17,6 +17,12 @@ import { User, LogOut, Settings } from 'lucide-react'
 import { getCurrentUser, getUserProfile, signOut, UserRole } from '@/lib/supabase/auth-helpers'
 
 export default function Navbar() {
+  const getErrorMessage = (err: unknown): string => {
+    if (err && typeof err === 'object' && 'message' in (err as Record<string, unknown>)) {
+      return String((err as { message?: unknown }).message)
+    }
+    return String(err)
+  }
   const [user, setUser] = useState<any>(null)
   const [profile, setProfile] = useState<any>(null)
   const [loading, setLoading] = useState(true)
@@ -27,7 +33,7 @@ export default function Navbar() {
       try {
         const { user, error } = await getCurrentUser()
         if (error) {
-          if (error.message.includes('not properly configured')) {
+          if (getErrorMessage(error).includes('not properly configured')) {
             setSupabaseError('Supabase not configured')
             setLoading(false)
             return
@@ -38,7 +44,7 @@ export default function Navbar() {
         if (user) {
           setUser(user)
           const { profile, error: profileError } = await getUserProfile(user.id)
-          if (profileError && !profileError.message.includes('not properly configured')) {
+          if (profileError && !getErrorMessage(profileError).includes('not properly configured')) {
             console.error('Error fetching profile:', profileError)
           }
           setProfile(profile)
@@ -57,7 +63,7 @@ export default function Navbar() {
     try {
       const { error } = await signOut()
       if (error) {
-        if (error.message.includes('not properly configured')) {
+        if (getErrorMessage(error).includes('not properly configured')) {
           // If Supabase is not configured, just redirect to home
           window.location.href = '/'
           return
@@ -135,12 +141,12 @@ export default function Navbar() {
               ⚠️ Supabase not configured - Demo mode
             </div>
             <Link href="/signin">
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="border-emerald-700 text-emerald-800 hover:bg-emerald-50">
                 Sign In
               </Button>
             </Link>
             <Link href="/signup">
-              <Button size="sm">
+              <Button size="sm" className="bg-emerald-700 hover:bg-emerald-800 text-white">
                 Sign Up
               </Button>
             </Link>
@@ -212,12 +218,12 @@ export default function Navbar() {
           ) : (
             <div className="flex items-center space-x-2">
               <Link href="/signin">
-                <Button variant="ghost" size="sm">
+                <Button variant="outline" size="sm" className="border-emerald-700 text-emerald-800 hover:bg-emerald-50">
                   Sign In
                 </Button>
               </Link>
               <Link href="/signup">
-                <Button size="sm">
+                <Button size="sm" className="bg-emerald-700 hover:bg-emerald-800 text-white">
                   Sign Up
                 </Button>
               </Link>
