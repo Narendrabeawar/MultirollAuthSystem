@@ -14,8 +14,23 @@ import {
   ArrowRight,
   CheckCircle
 } from 'lucide-react'
+import { useAuthRedirect } from '@/hooks/useAuthRedirect'
 
 export default function LandingPage() {
+  const { loading } = useAuthRedirect()
+
+  // Show loading spinner while checking authentication
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full"
+        />
+      </div>
+    )
+  }
   const features = [
     {
       icon: Shield,

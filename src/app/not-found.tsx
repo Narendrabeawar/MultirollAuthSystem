@@ -4,9 +4,24 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Home, ArrowLeft } from 'lucide-react'
+import { useAuthRedirect } from '@/hooks/useAuthRedirect'
 
 export default function NotFound() {
   const router = useRouter()
+  const { loading } = useAuthRedirect()
+
+  // Show loading spinner while checking authentication
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full"
+        />
+      </div>
+    )
+  }
 
   return (
     <div 
@@ -87,7 +102,15 @@ export default function NotFound() {
             transition={{ duration: 0.6, delay: 1.0 }}
           >
             <Button
-              onClick={() => router.back()}
+              onClick={() => {
+                // Check if there's a previous page in history
+                if (window.history.length > 1) {
+                  router.back()
+                } else {
+                  // If no previous page, go to dashboard or home
+                  router.push('/dashboard/superadmin')
+                }
+              }}
               className="bg-custom-teal hover:bg-custom-teal-hover text-white border-0 shadow-lg"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
@@ -95,9 +118,23 @@ export default function NotFound() {
             </Button>
             
             <Button
-              onClick={() => router.push('/')}
+              onClick={() => {
+                // If user is logged in, redirect to their dashboard
+                if (window.location.pathname.includes('/dashboard')) {
+                  // Try to determine the correct dashboard based on the path
+                  const pathParts = window.location.pathname.split('/')
+                  const dashboardType = pathParts[2] // e.g., 'superadmin', 'user1', etc.
+                  if (dashboardType) {
+                    router.push(`/dashboard/${dashboardType}`)
+                  } else {
+                    router.push('/dashboard/superadmin')
+                  }
+                } else {
+                  router.push('/')
+                }
+              }}
               variant="outline"
-              className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm"
+              className="border-white/50 text-white hover:bg-white/20 backdrop-blur-sm bg-white/10"
             >
               <Home className="h-4 w-4 mr-2" />
               Go Home
